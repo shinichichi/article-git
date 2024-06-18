@@ -71,9 +71,9 @@ Route::middleware('adminauth')->group(function () {
 });
 
 // ユーザールート
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //　記事一覧表示
 Route::get('/index', [AnotherController::class, 'index'])->name('article.index'); //->middleware('auth');
