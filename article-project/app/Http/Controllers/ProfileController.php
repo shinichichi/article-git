@@ -11,17 +11,53 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use App\Mail\Sendmail;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Str;
+use App\Models\User;
 
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * プロフィール変更ページへ
      */
     public function edit(Request $request): View
     {
+        $user = User::where('id', Auth::user()->id)->first();
+        // $icon = User::findOrFail(Auth::user());
+
+        // if ($user->icon != null) {
+        //     $icon = $user->data;
+        // }
+ 
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            // 'icon' => $icon,
+        ]);
+    }
+
+    /**
+     * アイコン変更更新
+     */
+    public function iconchange(Request $request): View
+    {
+        // アップロードされたファイル
+        $file = $request->file('icon_image_path');
+        $fileName = $file->getClientOriginalName();
+        $fileData = file_get_contents($file);
+
+        // 画像をデータベースに保存
+        DB::table('users')->where('id', Auth::user()->id)->update([
+            'icon' => $fileName,
+            'data' => $fileData,
+        ]);
+
+        $user = User::where('id', Auth::user()->id)->first();
+
+        return view('profile.edit', [
+            'user' => $user,
+            // 'icon' => $icon,
         ]);
     }
 
@@ -117,7 +153,6 @@ class ProfileController extends Controller
     public function forminputconf(Request $request): View
     {
         $item = $request;
-        // dd($request['email']);
         return view('form_input_conf')->with('item', $item);
     }
 

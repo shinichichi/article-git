@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->string('account_name')->nullable();
             $table->string('icon')->nullable();
+            $table->binary('data')->nullable();
             $table->string('admin')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at');
