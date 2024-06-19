@@ -320,13 +320,13 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                @for ($i = 0; $i < 10; $i++)
+                @for ($i = 0; $i < $count; $i++)
                     <div class="form-group">
                         <div class="form-inline">
                             <div class="col">
                                 <div class="max-w-4xl mx-auto sm:px-20 lg:px-30 mb-1">
                                     <a class="a mt-2" href="{{ route('indexshow', $articles[$i]->id) }}">
-                                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-10">
                                             <div class="flex">
                                                 {{-- 記事にサムネがついていない場合 --}}
                                                 @if ($articles[$i]->thumbnail == null)
@@ -421,7 +421,7 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                @for ($i = 0; $i < 10; $i++)
+                @for ($i = 0; $i < $count; $i++)
                     <div class="form-group">
                         <div class="form-inline">
                             <div class="col pl-0 pr-0">

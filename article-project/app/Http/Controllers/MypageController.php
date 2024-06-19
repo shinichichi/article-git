@@ -7,8 +7,7 @@ use App\Models\ArticleComment;
 use App\Models\ArticleGood;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use GrahamCampbell\Markdown\Facades\Markdown;
-
+// use GrahamCampbell\Markdown\Facades\Markdown;
 
 class MypageController extends Controller
 {
@@ -18,11 +17,11 @@ class MypageController extends Controller
         if(count($articles) <= 0){
             $n = 'nothing';
         }elseif(count($articles) === 1){
-            $articles[0]['markdown_text'] = Markdown::convert($articles[0]['markdown_text']);
+            // $articles[0]['markdown_text'] = Markdown::convert($articles[0]['markdown_text']);
             $n = $articles;
         }elseif(count($articles) > 0){
             foreach($articles as $article){
-                $article['markdown_text'] = Markdown::convert($article['markdown_text']);
+                // $article['markdown_text'] = Markdown::convert($article['markdown_text']);
                 $n[] = $article;
             }
         }
@@ -30,31 +29,30 @@ class MypageController extends Controller
         return view('article.index', ['articles' => $articles]);
     }
 
-    public function show(Request $request)
-    {
-        $articles = Article::where('user_id', Auth::id())->get();
-        $n = null;
-        if(count($articles) <= 0){
-            $articles = 'なし';
-        }elseif(count($articles) === 1){
-            $articles[0]['markdown_text'] = Markdown::convert($articles[0]['markdown_text']);
-            $n = $articles;
-        }elseif(count($articles) > 0){
-            foreach($articles as $article){
-                $article['markdown_text'] = Markdown::convert($article['markdown_text']);
-                $n[] = $article;
-            }
-        }
-        $articles = $n;
-        // dd($articles);
+    // public function show(Request $request)
+    // {
+    //     $articles = Article::where('user_id', Auth::id())->get();
+    //     $n = null;
+    //     if(count($articles) <= 0){
+    //         $articles = 'なし';
+    //     }elseif(count($articles) === 1){
+    //         // $articles[0]['markdown_text'] = Markdown::convert($articles[0]['markdown_text']);
+    //         $n = $articles;
+    //     }elseif(count($articles) > 0){
+    //         foreach($articles as $article){
+    //             // $article['markdown_text'] = Markdown::convert($article['markdown_text']);
+    //             $n[] = $article;
+    //         }
+    //     }
+    //     $articles = $n;
 
-        return view('mypage.show', [
-            'user' => Auth::user(),
-            'articles' => $articles,
-            'article_comments' => null,
-            'article_goods' => null,
-        ]);
-    }
+    //     return view('mypage.show', [
+    //         'user' => Auth::user(),
+    //         'articles' => $articles,
+    //         'article_comments' => null,
+    //         'article_goods' => null,
+    //     ]);
+    // }
 
     public function commentIndex()
     {

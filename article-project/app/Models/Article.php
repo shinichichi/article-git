@@ -38,7 +38,7 @@ class Article extends Model
             'articles.*', 'users.is_delete as users.is_delete', 'articles.is_delete',)
             ->join('users', 'articles.user_id', '=', 'users.id')
             ->latest('articles.updated_at')
-            ->take(10)
+        //     ->take(10)
             ->get();
     }
 

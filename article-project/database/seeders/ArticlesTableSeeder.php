@@ -238,6 +238,249 @@ class ArticlesTableSeeder extends Seeder
                 'created_at' => '2024-05-18 16:19:17',
                 'updated_at' => '2024-05-18 16:19:17',
             ],
+            //11
+            [
+                'title' => Str::random(50),
+                'user_id' => 1,
+                'thumbnail' => 'test5.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //12
+            [
+                'title' => Str::random(50),
+                'user_id' => 2,
+                'thumbnail' => 'test1.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //12
+            [
+                'title' => Str::random(50),
+                'user_id' => 3,
+                'thumbnail' => 'test3.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+
+            //13
+            [
+                'title' => Str::random(50),
+                'user_id' => 4,
+                'thumbnail' => 'test4.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //14
+            [
+                'title' => Str::random(50),
+                'user_id' => 5,
+                'thumbnail' => 'test5.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //15
+            [
+                'title' => Str::random(50),
+                'user_id' => 6,
+                'thumbnail' => 'test5.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //16
+            [
+                'title' => Str::random(50),
+                'user_id' => 1,
+                'thumbnail' => 'test1.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //17
+            [
+                'title' => Str::random(50),
+                'user_id' => 2,
+                'thumbnail' => 'test2.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //18
+            [
+                'title' => Str::random(50),
+                'user_id' => 3,
+                'thumbnail' => 'test3.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //19
+            [
+                'title' => Str::random(50),
+                'user_id' => 4,
+                'thumbnail' => 'test5.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
+            //20
+            [
+                'title' => Str::random(50),
+                'user_id' => 10,
+                'thumbnail' => 'test5.jpg',
+                'article_type' => 0, // 0:記事 1:Q&A 2:意見交換
+                'markdown_text'  => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaa
+                 aaaaa
+                 aaaaaaaaaaaaaaaa
+                 <pre><code class="php">$a = 8;
+                 count($a);
+                 </code></pre>
+
+                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                 aaaaaaaaaaaaaaaaaaa
+                 ',
+                'public_type' => 0, // 0:全体に公開 1:限定公開,下書きが0の時はエラーを出したい 2:公開停止
+                'draft' => 0, // 0:下書き状態でない 1:下書き状態
+                'created_at' => '2024-05-18 16:19:17',
+                'updated_at' => '2024-05-18 16:19:17',
+            ],
         ]);
     }
 }

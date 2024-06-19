@@ -6,7 +6,6 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MypageController;
 use Illuminate\Support\Facades\Route;
 
-
 // Route::get('/index', [ArticleController::class, 'index'])->name('article.index')->middleware('auth');
 Route::get('/create', [ArticleController::class, 'create'])->name('article.create');
 
@@ -22,9 +21,8 @@ Route::get('/update', [ArticleController::class, 'update'])->name('article.updat
 // comment
 Route::post('/article/comment', [CommentController::class, 'commentAcquisition'])->name('article.comment');
 
-
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [MypageController::class, 'show'])->name('mypage.show');
+    // Route::get('/mypage', [MypageController::class, 'show'])->name('mypage.show');
     Route::get('/mypage/comment_list',[MypageController::class, 'commentIndex'])->name('mypage.comment_list');
     Route::get('/mypage/good_list',[MypageController::class, 'goodIndex'])->name('mypage.good_list');
 

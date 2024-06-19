@@ -66,8 +66,11 @@ Route::middleware('adminauth')->group(function () {
     Route::post('/admin/alluser/message/update', [AdminController::class, 'allusermessageupdate'])->name('allusermessageupdate');
     // 管理者お知らせ編集確認
     Route::post('/admin/alluser/message/update/conf', [AdminController::class, 'allusermessageupdateconf'])->name('allusermessageupdateconf');
-     // 管理者お知らせ編集完了
-     Route::patch('', [AdminController::class, 'allusermessageupdatecomplete'])->name('allusermessageupdatecomplete');
+    // 管理者お知らせ編集完了
+    Route::patch('', [AdminController::class, 'allusermessageupdatecomplete'])->name('allusermessageupdatecomplete');
+    // マイページ
+     Route::get('/mypage', [anotherController::class, 'mypage'])->name('mypage.show');
+
 });
 
 // ユーザールート
