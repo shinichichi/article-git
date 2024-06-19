@@ -57,4 +57,13 @@ class Article extends Model
                 ->take(5)
                 ->get();
         }
+
+
+        // ◇リレーション
+
+        // 記事画像
+        public function articleImages()
+        {
+                return $this->hasMany('App\Model\ArticleImage');
+        }
 }

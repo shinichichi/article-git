@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 
 class AnotherController extends Controller
@@ -65,13 +67,13 @@ class AnotherController extends Controller
      */
     public function articleshow($id)
     {
-        $value = session()->pull('article');
+        // dd($id);
+        // $value = session()->pull('article');
         $article = Article::where('id', $id)->first();
         // dd($article);
-        // $article['markdown_text'] = Markdown::convert($article->markdown_text);
-        // dd($article['markdown_text']);
+        // マークダウンテキストをHTMLにコンバート
+        $article['markdown_text'] = Str::markdown($article['markdown_text']);
 
-        // dd($article);
         return view('article.show', compact('article'));
     }
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
     @push('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    @vite(['resources/js/simplemde.js'])
     @endpush
     <div class="max-w-7xl mx-auto px-6">
         @if(session('message'))
@@ -10,15 +10,18 @@
         @endif
         <form method="post" action="{{ route('article.create.posted_preference') }}" >
             @csrf
+            {{-- タイトル --}}
             <div class="w-full flex flex-col">
-                <label for="title" class="font-semibold mt-4">本文</label>
+                <label for="title" class="font-semibold mt-4">タイトル</label>
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
-                <textarea name="title" id="title">{{old('title')}}</textarea >
+                <input type="text" name="title" id="title" value="{{ old('title') }}">
             </div>
+            {{-- 本分 --}}
             <div class="w-full flex flex-col">
                 <label for="markdown-editor" class="font-semibold mt-4">本文</label>
                 <x-input-error :messages="$errors->get('markdown_text')" class="mt-2" />
-                <textarea name="markdown_text" class="w-auto py-2 border border-gray-300 rounded-md" id="markdown-editor" cols="30" rows="5">{{old('body')}}</textarea >
+                <textarea name="markdown_text" class="w-auto py-2 border border-gray-300 rounded-md" id="markdown-editor" cols="30" rows="5">{{old('markdown_text')}}</textarea >
+                <div id="editor-content" data-content="{{old('markdown_text')}}"></div>
             </div>
             <!--ドロップダウン -->
             <div class="form-group">
@@ -58,10 +61,6 @@
         </form>
     </div>
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-    <script>
-        const easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
-    </script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     @endpush
-
 </x-app-layout>

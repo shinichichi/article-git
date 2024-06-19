@@ -1,6 +1,6 @@
 <x-app-layout>
     @push('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+    @vite(['resources/js/simplemde.js'])
     @endpush
     <div class="max-w-7xl mx-auto px-6">
         @if(session('message'))
@@ -11,17 +11,21 @@
         <form method="post" action="{{ route('article.edit.posted_preference') }}" >
             @csrf
             @method('PATCH')
+            <input name="id" type="hidden" value="{{ $article['id'] }}">
+            {{-- タイトル --}}
             <div class="w-full flex flex-col">
                 <label for="title" class="font-semibold mt-4">タイトル</label>
-                <x-input-error :messages="$errors->get('markdown_text')" class="mt-2" />
-                <textarea name="title" id="title">{{old('title', $article->title)}}</textarea >
+                <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                <input type="text" name="title"  id="title" value="{{old('title', $article->title)}}">
             </div>
+            {{-- 本分 --}}
             <div class="w-full flex flex-col">
                 <label for="markdown-editor" class="font-semibold mt-4">本文</label>
                 <x-input-error :messages="$errors->get('markdown_text')" class="mt-2" />
-                <textarea name="markdown_text" class="w-auto py-2 border border-gray-300 rounded-md" id="markdown-editor" cols="30" rows="5">{{old('markdown_text', $article->markdown_text)}}</textarea >
+                <textarea name="markdown_text" class="w-auto py-2 border border-gray-300 rounded-md" id="markdown-editor" cols="30" rows="5">{{old('markdown_text', $article['markdown_text'])}}</textarea >
+                    <div id="editor-content" data-content="{{old('markdown_text', $article['markdown_text'])}}"></div>
             </div>
-            <input type="hidden" name="id" value="{{ $article->id }}">
+            <div id="editor-content" data-content="{{ $article['markdown_text'] }}"></div>
             <!--ドロップダウン -->
             <div class="form-group">
                 <label for="tag-id">{{ __('記事タイプ') }}<span class="badge badg-danger ml-2"></span></label>
@@ -60,37 +64,6 @@
         </form>
     </div>
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-    <script>
-        const easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
-        // const easyMDE = new EasyMDE({
-        //     toolbar: [
-        //         "bold",
-        //         "heading",
-        //         "strikethrough",
-        //         "|",
-        //         {
-        //             name: "emdet-insertYoutube",
-        //             action: "insertYoutube",  // Javascriptの関数を呼び出す
-        //             className: "fa fa-youtube",  // fontawesomeより選択
-        //             title: "Insert Youtube Video"
-        //         },
-        //         "side-by-side"
-        //     ]
-        // });
-        // var _editor = {};
-
-        // function insertYoutube(editor) {
-        //     _editor = editor;
-        //     var id = prompt("動画のIDを入力してください","");
-
-        //     if (id !== null && id !== ""){
-        //         var tag = '<div class="youtube-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe></div>';
-        //         var cm = _editor.codemirror;
-        //         cm.replaceSelection(tag);
-        //     }
-        // }
-        
-    </script>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     @endpush
 </x-app-layout>

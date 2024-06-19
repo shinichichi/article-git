@@ -7,19 +7,21 @@ use App\Http\Controllers\MypageController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::get('/index', [ArticleController::class, 'index'])->name('article.index')->middleware('auth');
+// 記事の作成
 Route::get('/create', [ArticleController::class, 'create'])->name('article.create');
-
-// Route::post('/show', [ArticleController::class, 'show'])->name('article.show');
+// 記事作成確認画面
 Route::post('/create/posted_preference', [ArticleController::class, 'createPostedPreference'])->name('article.create.posted_preference');
+// 作成処理
 Route::get('/store', [ArticleController::class, 'store'])->name('article.store');
-
-Route::post('/edit', [ArticleController::class, 'edit'])->name('article.edit');
-Route::get('/edit/posted_preference', [ArticleController::class, 'editPostedPreference'])->name('article.edit.posted_preference');
+// 記事の編集画面
+Route::get('/edit', [ArticleController::class, 'edit'])->name('article.edit');
+// 記事編集確認画面
+// Route::get('/edit/posted_preference', [ArticleController::class, 'editPostedPreference'])->name('article.edit.posted_preference');
 Route::patch('/edit/posted_preference', [ArticleController::class, 'editPostedPreference'])->name('article.edit.posted_preference');
+// 記事編集処理
 Route::get('/update', [ArticleController::class, 'update'])->name('article.update');
 
-// comment
+// 記事にコメントを投稿
 Route::post('/article/comment', [CommentController::class, 'commentAcquisition'])->name('article.comment');
 
 

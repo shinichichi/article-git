@@ -1,12 +1,8 @@
 <x-app-layout>
     @push(('styles'))
+    {{-- preタグのスタイル --}}
     <link rel="stylesheet" href="{{ asset('highlight/styles/base16/atelier-lakeside.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-    <!-- <script>hljs.highlightAll();</script> -->
-    <script>
-    </script>
     @endpush
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -55,7 +51,7 @@
     </div>
 
     <div>
-        <form action="{{ route('article.edit') }}" method="post">
+        <form action="{{ route('article.edit') }}" method="get">
             @csrf
             {{-- @method('PATCH') --}}
             <input type="hidden" name="id" value="{{ $article->id }}">
@@ -63,22 +59,8 @@
         </form>
     </div>
 
-    <div id="app"></div>
-
-    {{-- <comment id="app" :comment-string='@json($article->id)'></comment> --}}
-
-    <div id="app2"></div>
-
-    <dev id="app3"></dev>
-
-    <comment2 :article="{{ $article }}"></comment2>
-
-</x-app-layout>
-
 @push('scripts')
 <script src="{{ asset('/highlight/package.json') }}" ></script>
-<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-<script>
-    const easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
-</script>
 @endpush
+</x-app-layout>
+
