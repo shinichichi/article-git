@@ -8,9 +8,9 @@ use App\Models\Article;
 use App\Models\ArticleComment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 
 class AnotherController extends Controller
@@ -35,18 +35,20 @@ class AnotherController extends Controller
             $dates[] = Carbon::parse($favorite->updated_at)->format('Y-m-d');
         }
 
-        // 一覧表示
+        // 新しい記事順に一覧表示
         $this->article = new Article();
         $articles = $this->article->getUserNameById();
+        $count = $this->article->getUserNameById()->count();
 
-        // サムネイル画像があるストレージから取得
-        for ($i = 0; $i < 10; $i++) {
+        // テスト用サムネイル画像があるストレージからcount数取得
+        for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->thumbnail != null) {
                 $articles[$i]->thumbnail = ('image/' . $articles[$i]->thumbnail);
             }
         }
-        // アイコン画像がある場合ストレージから取得
-        for ($i = 0; $i < 10; $i++) {
+
+        // テスト用アイコン画像がある場合ストレージからcount数取得
+        for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->icon != null) {
                 $articles[$i]->icon = ('image/' . $articles[$i]->icon);
             }
@@ -57,6 +59,7 @@ class AnotherController extends Controller
             "dates" => $dates,
             "favorites" => $favorites,
             "articles" => $articles,
+            "count" => $count,
         ]);
     }
 
@@ -73,5 +76,25 @@ class AnotherController extends Controller
 
         // dd($article);
         return view('article.show', compact('article'));
+    }
+    //　マイページ表示
+    public function mypage()
+    {
+        $articles = DB::table('articles')->where('user_id', Auth::user()->id)->get();
+        $count = $articles->count();
+
+        // テスト用サムネイル画像があるストレージからcount数取得
+        for ($i = 0; $i < $count; $i++) {
+            if ($articles[$i]->thumbnail != null) {
+                $articles[$i]->thumbnail = ('image/' . $articles[$i]->thumbnail);
+            }
+        }
+
+        return view('mypage.show', [
+            'articles' => $articles,
+            'count' => $count,
+            // 'article_comments' => null,
+            // 'article_goods' => null,
+        ]);
     }
 }
