@@ -5,8 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('article.index') }}">
+                        <p class="text-xl ">サイト名</p>
                     </a>
                 </div>
 
@@ -16,6 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                {{-- ユーザーログイン時アイコン表示 --}}
+                {{-- @if (Auth::user())
+                        
+                @endif --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -41,6 +45,9 @@
                     <x-slot name="content">
                         {{-- ログイン中のみ表示 --}}
                         @if (Auth::user())
+                            <x-dropdown-link :href="route('article.create')">
+                                {{ __('記事作成') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
@@ -65,12 +72,19 @@
                         @endif
                         {{-- ログインしていない場合 --}}
                         @if (is_null(Auth::user()))
+                        <x-dropdown-link :href="route('login')">
+                            {{ __('ログイン') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('article.create')">
+                            {{ __('記事作成') }}
+                        </x-dropdown-link>
                         @endif
                         {{-- ログイン中としていない共有 --}}
 
-                        <x-dropdown-link :href="route('forminput')">
+                        {{-- <x-dropdown-link :href="route('forminput')">
                             {{ __('お問い合わせ') }}
-                        </x-dropdown-link>
+                        </x-dropdown-link> --}}
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -108,8 +122,12 @@
                         <div class="font-medium text-gray-400">({{ Auth::user()->email }})</div>
                     </span>
                 </div>
-
+                
                 <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('article.create')">
+                        {{ __('記事作成') }}
+                    </x-responsive-nav-link>
+
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
@@ -132,6 +150,28 @@
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
+                </div>
+            </div>
+        @endif
+
+        {{-- ログインしていない場合 --}}
+        @if (is_null(Auth::user()))
+        <div class="pb-1 border-t border-gray-200">
+                {{-- <div class="px-4">
+                    <span class="flex">
+                        <div class="font-medium text-base text-gray-400">{{ Auth::user()->user_name }}</div>
+                        <div class="font-medium text-gray-400">({{ Auth::user()->email }})</div>
+                    </span>
+                </div> --}}
+                
+                <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('login')">
+                        {{ __('ログイン') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('article.create')">
+                        {{ __('記事作成') }}
+                    </x-responsive-nav-link>
                 </div>
             </div>
         @endif

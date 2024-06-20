@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -42,6 +43,7 @@ Route::middleware('guest')->group(function () {
     // ログイン入力
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
+
     // ログイン認証
     Route::post('login', [AuthenticatedSessionController::class, 'store'])
         ->name('login'); //追加
@@ -64,9 +66,14 @@ Route::middleware('auth')->group(function () {
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
                 ->middleware(['signed', 'throttle:6,1'])
                 ->name('verification.verify');
+                
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
                 ->middleware('throttle:6,1')
                 ->name('verification.send');
+
+    // アイコン画像更新
+    Route::patch('', [ProfileController::class, 'iconchange'])
+        ->name('iconchange');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
                 ->name('password.confirm');

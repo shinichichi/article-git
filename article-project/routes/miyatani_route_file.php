@@ -6,8 +6,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\MypageController;
 use Illuminate\Support\Facades\Route;
 
-
 // 記事の作成
+// Route::get('/index', [ArticleController::class, 'index'])->name('article.index')->middleware('auth');
 Route::get('/create', [ArticleController::class, 'create'])->name('article.create');
 // 記事作成確認画面
 Route::post('/create/posted_preference', [ArticleController::class, 'createPostedPreference'])->name('article.create.posted_preference');
@@ -24,9 +24,8 @@ Route::get('/update', [ArticleController::class, 'update'])->name('article.updat
 // 記事にコメントを投稿
 Route::post('/article/comment', [CommentController::class, 'commentAcquisition'])->name('article.comment');
 
-
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [MypageController::class, 'show'])->name('mypage.show');
+    // Route::get('/mypage', [MypageController::class, 'show'])->name('mypage.show');
     Route::get('/mypage/comment_list',[MypageController::class, 'commentIndex'])->name('mypage.comment_list');
     Route::get('/mypage/good_list',[MypageController::class, 'goodIndex'])->name('mypage.good_list');
 

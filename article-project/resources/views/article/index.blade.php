@@ -108,10 +108,12 @@
         border-radius: 6px;
         /* トラック両端の丸み */
     }
+
     /* スライド画像上だけ丸く */
     .spbrue {
         border-radius: 30px 30px 0px 0px;
     }
+
     .imagk400 {
         /* width: 360px;
         height: 360px; */
@@ -206,7 +208,7 @@
     }
 
     .bora-20 {
-        border-radius:0 0 20% 20%;
+        border-radius: 0 0 20% 20%;
     }
 
     .bora10 {
@@ -267,7 +269,7 @@
 
     /* アイコン画像調整 */
     .spimgs {
-        height: 40px ;
+        height: 40px;
         width: 40px;
         border-radius: 20%;
         /* padding-right: 10px; */
@@ -318,13 +320,13 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                @for ($i = 0; $i < 10; $i++)
+                @for ($i = 0; $i < $count; $i++)
                     <div class="form-group">
                         <div class="form-inline">
                             <div class="col">
                                 <div class="max-w-4xl mx-auto sm:px-20 lg:px-30 mb-1">
                                     <a class="a mt-2" href="{{ route('indexshow', $articles[$i]->id) }}">
-                                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-10">
                                             <div class="flex">
                                                 {{-- 記事にサムネがついていない場合 --}}
                                                 @if ($articles[$i]->thumbnail == null)
@@ -349,7 +351,7 @@
                                                                     <img class=""
                                                                         src="{{ asset('image/df40icon.jpg') }}"
                                                                         alt="">
-                                                                @endif 
+                                                                @endif
                                                                 {{-- ユーザーアイコンが設定されている場合デフォルト表示 --}}
                                                                 @if ($articles[$i]->icon != null)
                                                                     <img class="spimgs"
@@ -405,7 +407,8 @@
                                         <p>{{ $dates[$i] }}</p>
                                     </div>
                                     <!-- タイトル -->
-                                    <p class="lo text-xm bg-white text-gray-500 tg pt-2">{{ $favorites[$i]->title }}</p>
+                                    <p class="lo text-xm bg-white text-gray-500 tg pt-2">{{ $favorites[$i]->title }}
+                                    </p>
                                 </a>
                             </div>
                         </div>
@@ -418,7 +421,7 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                    @for ($i = 0; $i < 10; $i++)
+                @for ($i = 0; $i < $count; $i++)
                     <div class="form-group">
                         <div class="form-inline">
                             <div class="col pl-0 pr-0">
@@ -434,12 +437,13 @@
                                                 @endif
                                                 {{-- 記事にサムネイルがある場合 --}}
                                                 @if ($articles[$i]->thumbnail != null)
-                                                    <img class=" imagk400"
-                                                        src="{{ asset($articles[$i]->thumbnail) }}" alt="">
+                                                    <img class=" imagk400" src="{{ asset($articles[$i]->thumbnail) }}"
+                                                        alt="">
                                                 @endif
                                                 <div class="wi col mx-1 my-2">
                                                     <!-- タイトル -->
-                                                    <p class="lo text-xl text-gray-500 pt-2">{{ $articles[$i]->title }}</p>
+                                                    <p class="lo text-xl text-gray-500 pt-2">{{ $articles[$i]->title }}
+                                                    </p>
                                                     {{-- ユーザー名 更新日 --}}
                                                     <div class="sp pt-2">
                                                         <span class="lo text-xs text-gray-400">
@@ -449,7 +453,7 @@
                                                                     <img class=""
                                                                         src="{{ asset('image/df40icon.jpg') }}"
                                                                         alt="">
-                                                                @endif 
+                                                                @endif
                                                                 {{-- ユーザーアイコンが設定されている場合デフォルト表示 --}}
                                                                 @if ($articles[$i]->icon != null)
                                                                     <img class="spimgs"
