@@ -1,17 +1,13 @@
 <x-app-layout>
-
     @push(('styles'))
     <link rel="stylesheet" href="{{ asset('highlight/styles/base16/atelier-lakeside.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     @endpush
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                 <p>タイトル</p>
                 <p>{{ $article['title'] }}</p>
-
                 <p>記事内容：</p>
                 <p>{!! $article['markdown_text'] !!}</p>
 </br>
@@ -47,18 +43,18 @@
                 @endif
 </br>
                 </div>
-                <a href="{{ route('article.store') }}">投稿</a>
+                <form action="{{ route('article.store') }}" method="GET">
+                    <div class="w-full flex flex-col">
+                        <label for="comment" class="font-semibold mt-4">コメント</label>
+                        <input type="text" name="comment"  id="comment" value="{{old('comment')}}">
+                    </div>        
+                    <button>投稿</button>    
+                </form>
             </div>
         </div>
     </div>
-
-    @push('scripts')
-    <script src="{{ asset('/highlight/package.json') }}" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
-    <script>
-    const easyMDE = new EasyMDE({element: document.getElementById('markdown-editor')});
-
-</script>
+@push('scripts')
+<script src="{{ asset('/highlight/package.json') }}" ></script>
 @endpush
 
 

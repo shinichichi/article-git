@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-
+use Illuminate\Support\Str;
 
 class AnotherController extends Controller
 {
@@ -68,13 +68,13 @@ class AnotherController extends Controller
      */
     public function articleshow($id)
     {
-        $value = session()->pull('article');
+        // dd($id);
+        // $value = session()->pull('article');
         $article = Article::where('id', $id)->first();
         // dd($article);
-        // $article['markdown_text'] = Markdown::convert($article->markdown_text);
-        // dd($article['markdown_text']);
+        // マークダウンテキストをHTMLにコンバート
+        $article['markdown_text'] = Str::markdown($article['markdown_text']);
 
-        // dd($article);
         return view('article.show', compact('article'));
     }
     //　マイページ表示
