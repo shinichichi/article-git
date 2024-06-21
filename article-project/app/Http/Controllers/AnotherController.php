@@ -20,6 +20,11 @@ class AnotherController extends Controller
      */
     public function index()
     {
+        // test
+        // $a = Article::with('user')->get();
+        // dd($a);
+        // end
+
         // おすすめ記事5個取得
         $this->article = new Article();
         $favorites = $this->article->getUserNameByIdFive();
@@ -60,6 +65,7 @@ class AnotherController extends Controller
             "favorites" => $favorites,
             "articles" => $articles,
             "count" => $count,
+            // 'a' => $a,
         ]);
     }
 

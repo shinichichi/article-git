@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->foreignIdFor(User::class)->nullable(true)->change();
+            // $table->foreignIdFor(User::class)->nullable(true)->change();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->foreignIdFor(User::class)->nullable(false)->change();
+            // $table->foreignIdFor(User::class)->nullable(false)->change();
         });
     }
 };

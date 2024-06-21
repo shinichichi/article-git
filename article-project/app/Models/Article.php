@@ -15,6 +15,7 @@ class Article extends Model
         'title',
         'user_id',
         'thumbnail',
+        'imagedata',
         'article_type',
         'markdown_text',
         'public_type',
@@ -64,6 +65,9 @@ class Article extends Model
         // 記事画像
         public function articleImages()
         {
-                return $this->hasMany('App\Model\ArticleImage');
+                return $this->hasMany('App\Models\ArticleImage');
+        }
+        public function user(){
+                return $this->belongsTo('App\Models\User');
         }
 }

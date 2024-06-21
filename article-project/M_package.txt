@@ -1,0 +1,50 @@
+composer/package - 
+composer require jfcherng/php-diff
+
+
+
+npm -package
+
+npm install highlight.js
+
+npm install -D tailwindcss postcss autoprefixer
+npm install simplemde
+npm install codemirror
+npm install highlight.js
+
+
+npm install vite-plugin-commonjs
+vite.comfig.js
+書き込む↓
+import commonjs from 'vite-plugin-commonjs';
+commonjs(),
+
+＝＝＝＝＝＝＝＝＝＝
+
+error
+npm config set legacy-peer-deps true
+npm i codemirror@version5 
+npm install -g marked
+npm install highlight.js
+
+
+たぶんいらん↓
+erusev/parsedown
+
+
+import SimpleMDE from "simplemde";
+import 'simplemde/dist/simplemde.min.css';
+import 'codemirror/addon/edit/continuelist.js';
+import 'codemirror/addon/display/fullscreen.js';
+import 'codemirror/mode/markdown/markdown.js';
+import 'codemirror/addon/mode/overlay.js';
+import 'codemirror/addon/display/placeholder.js';
+import 'codemirror/addon/selection/mark-selection.js';
+import 'codemirror/mode/gfm/gfm.js';
+import 'codemirror/mode/xml/xml.js';
+
+document.addEventListener("DOMContentLoaded", function() {
+    var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+});
+
+league/commonmark
