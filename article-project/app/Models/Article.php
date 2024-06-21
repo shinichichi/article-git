@@ -24,7 +24,7 @@ class Article extends Model
         'is_delete',
     ];
 
-    // 記事を10個取得
+    // 記事をすべて取得
     public function getUserNameById() {
     return DB::table('articles')
             ->select(

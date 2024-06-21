@@ -39,7 +39,7 @@ class AnotherController extends Controller
         $this->article = new Article();
         $articles = $this->article->getUserNameById();
         $count = $this->article->getUserNameById()->count();
-
+        // dd($articles);
         // テスト用サムネイル画像があるストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->thumbnail != null) {
