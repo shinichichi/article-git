@@ -290,6 +290,18 @@
                     <li class="mt-1 spiw">
                         <div class="box">
                             <div>
+                                {{-- test --}}
+                                {{-- @foreach ($a as $b) --}}
+                                {{-- <p>{{ $b }}</p> --}}
+                                {{-- <p>{{ $b->user_id }}</p> --}}
+                                @php
+                                    // dd($b->user->user_name);
+                                    // dd($a);
+                                @endphp
+                                    
+                                {{-- @endforeach --}}
+                                {{-- end test --}}
+
                                 <a class="as" href="{{ route('indexshow', $favorites[$i]->id) }}">
                                     <div class="kasaneru">
                                         {{-- 画像 --}}

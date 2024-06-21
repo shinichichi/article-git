@@ -14,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class,'user_id')->nullable;
+            // $table->foreignIdFor(User::class,'user_id')->nullable;
+            $table->foreignIdFor(User::class)->nullable(true);
             $table->string('thumbnail',255)->nullable(true);
+            $table->binary('imagedata')->nullable(true);
             $table->string('title',255)->nullable(false);
             $table->integer('article_type')->nullable(false);
             $table->string('markdown_text',255)->nullable(true);

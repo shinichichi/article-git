@@ -53,11 +53,38 @@ class ArticleController extends Controller
             // 'updated_at' => 'required',
             // 'is_delete' => 'required',
         ]);
-
+        
         $article = $validated;
+        // サムネ画像の処理
+        if(($file = $request->file('thumbnail_image_path')) !== null)
+        {
+            $article['thumbnail'] = $file->getClientOriginalName();
+            $article['imagedata'] = file_get_contents($file);
+            $request->session()->put([
+                'image' => [
+                    'thumbnail' => $file->getClientOriginalName(),
+                    'imagedata' => file_get_contents($file),    
+                ]
+            ]);
+            $path = pathinfo($article['thumbnail']);
+            // 拡張子
+        
+
+            
+            if($path['extension'] === 'svg'){
+                $article['extension'] = 'svg+xml';
+            }else{
+                $article['extension'] = $path['extension'];
+            }
+    
+        }else{
+            // 画像データなし処理
+            session()->forget('image');
+            $article['extension'] = null;
+        }
+    
         // マークダウンテキストをHTMLにコンバート
         $article['markdown_text'] = Str::markdown($article['markdown_text']);
-
         // 投稿するデータをセッションに登録
         $request->session()->put([
             'article' =>[
@@ -68,14 +95,22 @@ class ArticleController extends Controller
                 'draft' => $request->draft,
             ]
         ]);
-
+        // マークダウンテキストをHTMLにコンバート
+        $article['markdown_text'] = Str::markdown($article['markdown_text']);        
         return view('article.create_posted_preference',['article' => $article]);
     }
 
     // 新規記事投稿処理
-    public function store(Request $request) {
+    public function store() {
         $article = session()->get('article');
+        if($image = session()->get('image')){
+            $article = array_merge($article, $image);
+
+        }
+        // dd($article);
+        
         // 記事編集データ作成
+        $comment = 'コメントなし';
         $diff = '';
         $differOptions = [
             'context' => 3,
@@ -97,8 +132,8 @@ class ArticleController extends Controller
         $articleHistory = [
             'article_id' => $article->id,
             'diff_text' => $result,
-            'comment' => $request->comment,
-            'crated_at' => $article['created_at'],
+            'comment' => $comment
+,            'crated_at' => $article['created_at'],
         ];
         ArticleEditHistory::create($articleHistory);
         session()->forget('article'); // 記事入力セッション削除
@@ -161,6 +196,12 @@ class ArticleController extends Controller
     {
         $article = session()->get('article');
         // 記事編集履歴データ作成
+        if($request->comment === '')
+        {
+            $comment = 'コメントなし';
+        }else{
+            $comment = $request->comment;
+        }
         $diff = Article::where('id', $article['id'])->first();
         $differOptions = [
             'context' => 3,
@@ -185,7 +226,7 @@ class ArticleController extends Controller
         $articleHistory = [
             'article_id' => $article['id'],
             'diff_text' => $result,
-            'comment' => $request->comment,
+            'comment' => $comment,
             'crated_at' => date('Y-m-d H:i:s'),
         ];
         ArticleEditHistory::create($articleHistory);

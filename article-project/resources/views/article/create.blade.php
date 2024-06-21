@@ -1,6 +1,24 @@
 <x-app-layout>
     @push('styles')
     @vite(['resources/js/simplemde.js'])
+    <style>
+        /* アイコン画像調整 */
+        .spimgs {
+            height: 150px;
+            width: 150px;
+            border-radius: 20%;
+            /* padding-right: 10px; */
+        }
+    
+        /* アイコン画像調整 */
+        .nospimgs {
+            height: 150px;
+            width: 150px;
+            border-radius: 20%;
+            /* padding-right: 10px; */
+        }
+    </style>
+    
     @endpush
     <div class="max-w-7xl mx-auto px-6">
         @if(session('message'))
@@ -8,8 +26,16 @@
                 {{session('message')}}
             </div>
         @endif
-        <form method="post" action="{{ route('article.create.posted_preference') }}" >
+        <form method="post" action="{{ route('article.create.posted_preference') }}" enctype="multipart/form-data">
             @csrf
+            {{-- サムネ --}}
+            <img id="thumbnail_img_prv" class="nospimgs img-thumbnail h-25 w-25 mb-3" src="{{ asset('image/articledfimage.jpg') }}" alt="">
+            <div class="col-md-6">
+                <input id="thumbnail" type="file" class="form-control mb-5" accept="image/*"
+                    name="thumbnail_image_path" onchange="setImage">
+            </div>
+
+
             {{-- タイトル --}}
             <div class="w-full flex flex-col">
                 <label for="title" class="font-semibold mt-4">タイトル</label>
@@ -62,5 +88,23 @@
     </div>
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    // アイコン画像プレビュー処理
+    // 画像が選択される度に、この中の処理が走る
+    $('#thumbnail').on('change', function(ev) {
+        // このFileReaderが画像を読み込む上で大切
+        const reader = new FileReader();
+        // ファイル名を取得
+        const fileName = ev.target.files[0].name;
+        // 画像が読み込まれた時の動作を記述
+        reader.onload = function(ev) {
+            $('#thumbnail_img_prv').attr('src', ev.target.result).css('width', '150px').css('height', '150px');
+        }
+        reader.readAsDataURL(this.files[0]);
+    })
+</script>
+
     @endpush
 </x-app-layout>
