@@ -17,3 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/composer.json
+/composer.lock
+/packeage.json
+/packeage-lock.json
