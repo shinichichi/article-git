@@ -5,7 +5,6 @@ composer require jfcherng/php-diff
 
 npm -package
 
-npm install highlight.js
 
 npm install -D tailwindcss postcss autoprefixer
 npm install simplemde
@@ -25,7 +24,6 @@ error
 npm config set legacy-peer-deps true
 npm i codemirror@version5 
 npm install -g marked
-npm install highlight.js
 
 
 たぶんいらん↓
