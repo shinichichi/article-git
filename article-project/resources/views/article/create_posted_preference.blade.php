@@ -1,24 +1,7 @@
 <x-app-layout>
     @push(('styles'))
     <link rel="stylesheet" href="{{ asset('highlight/styles/base16/atelier-lakeside.css')}}">
-    <style>
-        /* アイコン画像調整 */
-        .spimgs {
-            height: 150px;
-            width: 150px;
-            border-radius: 20%;
-            /* padding-right: 10px; */
-        }
-    
-        /* アイコン画像調整 */
-        .nospimgs {
-            height: 150px;
-            width: 150px;
-            border-radius: 20%;
-            /* padding-right: 10px; */
-        }
-    </style>
-
+    @vite(['resources/css/image.css'])
     @endpush
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

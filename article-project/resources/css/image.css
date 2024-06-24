@@ -1,0 +1,18 @@
+/* アイコン画像調整 */
+
+.spimgs {
+    height: 150px;
+    width: 150px;
+    border-radius: 20%;
+    /* padding-right: 10px; */
+}
+
+
+/* アイコン画像調整 */
+
+.nospimgs {
+    height: 150px;
+    width: 150px;
+    border-radius: 20%;
+    /* padding-right: 10px; */
+}

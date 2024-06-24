@@ -2,11 +2,27 @@
     @push(('styles'))
     {{-- preタグのスタイル --}}
     <link rel="stylesheet" href="{{ asset('highlight/styles/base16/atelier-lakeside.css')}}">
+    @vite(['resources/css/image.css'])
     @endpush
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900"> 
+                    @if ($article['extension'] === null && $article['imagedata'] === null)
+                    @php
+                        // dd($article['extension']);
+                    @endphp
+                    <img id="icon_img_prv" class="nospimgs img-thumbnail h-25 w-25 mb-3"
+                        src="{{ asset('image/articledfimage.jpg') }}" alt="">
+                    @elseif($article['extension'] !== null && $article['imagedata'] !== null)
+                    <img src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
+                        alt="サムネイル画像">
+                        @php
+                            dd($article['extension']);
+                        @endphp
+                    @elseif($article['extension'] !== null && $article['imagedata'] === null)
+
+                    @endif
                 <p>タイトル</p>
                 <p>{{ $article['title'] }}</p>
 

@@ -1,24 +1,7 @@
 <x-app-layout>
     @push('styles')
     @vite(['resources/js/simplemde.js'])
-    <style>
-        /* アイコン画像調整 */
-        .spimgs {
-            height: 150px;
-            width: 150px;
-            border-radius: 20%;
-            /* padding-right: 10px; */
-        }
-    
-        /* アイコン画像調整 */
-        .nospimgs {
-            height: 150px;
-            width: 150px;
-            border-radius: 20%;
-            /* padding-right: 10px; */
-        }
-    </style>
-    
+    @vite(['resources/css/image.css'])
     @endpush
     <div class="max-w-7xl mx-auto px-6">
         @if(session('message'))
@@ -34,8 +17,6 @@
                 <input id="thumbnail" type="file" class="form-control mb-5" accept="image/*"
                     name="thumbnail_image_path" onchange="setImage">
             </div>
-
-
             {{-- タイトル --}}
             <div class="w-full flex flex-col">
                 <label for="title" class="font-semibold mt-4">タイトル</label>
@@ -49,18 +30,19 @@
                 <textarea name="markdown_text" class="w-auto py-2 border border-gray-300 rounded-md" id="markdown-editor" cols="30" rows="5">{{old('markdown_text')}}</textarea >
                 <div id="editor-content" data-content="{{old('markdown_text')}}"></div>
             </div>
-            <!--ドロップダウン -->
-            <div class="form-group">
+            <!--ドロップダウン 記事タイプ -->
+            <input type="hidden" name="article_type" value="0">
+            {{-- <div class="form-group">
                 <label for="tag-id">{{ __('記事タイプ') }}<span class="badge badg-danger ml-2"></span></label>
                 <select class="form-control" id="tag-id" name="article_type">
                     @foreach (Config::get('tag.article_type') as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
             <!-- /ドロップダウン -->
 
-            <!--ドロップダウン -->
+            <!--ドロップダウン公開設定 -->
             <div class="form-group">
                 <label for="tag-id">{{ __('公開設定') }}<span class="badge badg-danger ml-2"></span></label>
                 <select class="form-control" id="tag-id" name="public_type">
@@ -71,15 +53,16 @@
             </div>
             <!-- /ドロップダウン -->
 
-            <!--ドロップダウン -->
-            <div class="form-group">
+            <!--ドロップダウン下書き -->
+            <input type="hidden" name="draft" value="0">
+            {{-- <div class="form-group">
                 <label for="tag-id">{{ __('下書き') }}<span class="badge badg-danger ml-2"></span></label>
                 <select class="form-control" id="tag-id" name="draft">
                     @foreach (Config::get('tag.draft') as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
             <!-- /ドロップダウン -->
             <x-primary-button class="mt-4">
                 送信する
@@ -89,6 +72,7 @@
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {{-- @vite(['resources/js/']) --}}
 
 <script>
     // アイコン画像プレビュー処理
