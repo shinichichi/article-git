@@ -68,7 +68,6 @@ class ArticleController extends Controller
             ]);
             $path = pathinfo($article['thumbnail']);
             // 拡張子
-        
 
             
             if($path['extension'] === 'svg'){
@@ -103,12 +102,11 @@ class ArticleController extends Controller
     // 新規記事投稿処理
     public function store() {
         $article = session()->get('article');
+        // 画像ファイルあればarticleと合わせる
         if($image = session()->get('image')){
             $article = array_merge($article, $image);
 
         }
-        // dd($article);
-        
         // 記事編集データ作成
         $comment = 'コメントなし';
         $diff = '';
@@ -127,6 +125,7 @@ class ArticleController extends Controller
         $article['user_id'] = auth()->id();
         $article['created_at'] = date('Y-m-d H:i:s');
         $article = Article::create($article);
+        // dd($article);
 
         // 記事編集データ登録
         $articleHistory = [
@@ -163,6 +162,7 @@ class ArticleController extends Controller
     // 記事編集画面
     public function editPostedPreference(Request $request)
     {
+        // バリデーション
         $validated = $request->validate([
             'id' => 'required',
             'title' => 'required',
@@ -175,9 +175,33 @@ class ArticleController extends Controller
             // 'is_delete' => 'required',
         ]);
         $article = $validated;
-        // マークダウンテキストをHTMLにコンバート
-        $article['markdown_text'] = Str::markdown($article['markdown_text']);
+        // サムネ画像の処理
+        if(($file = $request->file('thumbnail_image_path')) !== null)
+        {
+            $article['thumbnail'] = $file->getClientOriginalName();
+            $article['imagedata'] = file_get_contents($file);
+            $request->session()->put([
+                'image' => [
+                    'thumbnail' => $file->getClientOriginalName(),
+                    'imagedata' => file_get_contents($file),
+                ]
+            ]);
+            $path = pathinfo($article['thumbnail']);
+            // 拡張子
 
+            
+            if($path['extension'] === 'svg'){
+                $article['extension'] = 'svg+xml';
+            }else{
+                $article['extension'] = $path['extension'];
+            }
+        }else{
+            // 画像データなし処理
+            session()->forget('image');
+            $article['extension'] = null;
+        }
+
+        // 投稿するデータをセッションに登録
         $request->session()->put([
             'article' =>[
                 'id' => $request->id,
@@ -188,6 +212,9 @@ class ArticleController extends Controller
                 'draft' => $request->draft,
             ]
         ]);
+        // マークダウンテキストをHTMLにコンバート
+        $article['markdown_text'] = Str::markdown($article['markdown_text']);
+
 
         return view('article.edit_posted_preference',['article' => $article]);
     }
@@ -195,6 +222,10 @@ class ArticleController extends Controller
     public function update(Request $request)
     {
         $article = session()->get('article');
+        // 画像ファイルあればarticleと合わせる
+        if(($image = session()->get('image'))!== null){
+            $article = array_merge($article, $image);
+        }
         // 記事編集履歴データ作成
         if($request->comment === '')
         {
@@ -202,6 +233,7 @@ class ArticleController extends Controller
         }else{
             $comment = $request->comment;
         }
+        // 記事編集データ作成
         $diff = Article::where('id', $article['id'])->first();
         $differOptions = [
             'context' => 3,
@@ -213,14 +245,9 @@ class ArticleController extends Controller
         $result = DiffHelper::calculate($diff['markdown_text'], $article['markdown_text'], $rendererName, $differOptions, $rendererOptions);
 
         // 記事編集登録
-        $article['user_id'] = auth()->id();
-        Article::where('id' , $article['id'])->update([
-            'title' => $article['title'],
-            'markdown_text' => $article['markdown_text'],
-            'public_type' => $article['public_type'],
-            'draft' => $article['draft'],
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+        $article['updated_at'] = date('Y-m-d H:i:s');
+        $article = Article::where('id', $article['id'])->update($article);
+        // dd($article);
 
         // 記事編集履歴登録
         $articleHistory = [
@@ -231,6 +258,7 @@ class ArticleController extends Controller
         ];
         ArticleEditHistory::create($articleHistory);
         session()->forget('article'); // 記事編集フォームセッション削除
+        session()->forget('image'); // 画像セッション削除
 
         return redirect('/index');
     }

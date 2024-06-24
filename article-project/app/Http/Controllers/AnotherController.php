@@ -81,11 +81,23 @@ class AnotherController extends Controller
         // マークダウンテキストをHTMLにコンバート
         $article['markdown_text'] = Str::markdown($article['markdown_text']);
 
+        if($article['thumbnail'] !== null && $article['imagedata'] !== null)
+        {
+            $path = pathinfo($article['thumbnail']);
+            // 拡張子
+            if($path['extension'] === 'svg'){
+                $article['extension'] = 'svg+xml';
+            }else{
+                $article['extension'] = $path['extension'];
+            }
+        }
+
         return view('article.show', compact('article'));
     }
     //　マイページ表示
     public function mypage()
     {
+        
         $articles = DB::table('articles')->where('user_id', Auth::user()->id)->get();
         $count = $articles->count();
 
