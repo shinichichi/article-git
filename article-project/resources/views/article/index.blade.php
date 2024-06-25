@@ -277,54 +277,55 @@
 </style>
 <x-app-layout>
     @push('styles')
-        <link rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     @endpush
     {{-- デスクトップ画面 --}}
     <div class="desktop">
         <div class="">
             <ul class="scroll_content">
                 {{-- 5個まで表示 --}}
-                @for ($i = 0; $i < 5; $i++)
-                    <li class="mt-1 spiw">
-                        <div class="box">
-                            <div>
-                                {{-- test --}}
-                                {{-- @foreach ($a as $b) --}}
-                                {{-- <p>{{ $b }}</p> --}}
-                                {{-- <p>{{ $b->user_id }}</p> --}}
-                                @php
-                                    // dd($b->user->user_name);
-                                    // dd($a);
-                                @endphp
-                                    
-                                {{-- @endforeach --}}
-                                {{-- end test --}}
+                @for ($i = 0; $i < 5; $i++) <li class="mt-1 spiw">
+                    <div class="box">
+                        <div>
+                            <a class="as" href="{{ route('indexshow', $favorites[$i]->id) }}">
+                                <div class="kasaneru">
+                                    {{-- 修正前 --}}
+                                    {{-- 画像 --}}
+                                    {{-- 記事にサムネがついていない場合 --}}
+                                    {{-- @if ($favorites[$i]->thumbnail == null)
+                                    <img class="bora" src="{{ asset('image/articledfimage200.jpg') }}" alt="">
+                                    @endif --}}
+                                    {{-- 記事にサムネイルがある場合 --}}
+                                    {{-- @if ($favorites[$i]->thumbnail != null)
+                                    <img class="bora imagk200" src="{{ asset($favorites[$i]->thumbnail) }}" alt="">
+                                    @endif --}}
 
-                                <a class="as" href="{{ route('indexshow', $favorites[$i]->id) }}">
-                                    <div class="kasaneru">
-                                        {{-- 画像 --}}
-                                        {{-- 記事にサムネがついていない場合 --}}
-                                        @if ($favorites[$i]->thumbnail == null)
-                                            <img class="bora" src="{{ asset('image/articledfimage200.jpg') }}"
-                                                alt="">
-                                        @endif
-                                        {{-- 記事にサムネイルがある場合 --}}
-                                        @if ($favorites[$i]->thumbnail != null)
-                                            <img class="bora imagk200" src="{{ asset($favorites[$i]->thumbnail) }}"
-                                                alt="">
-                                        @endif
-                                        {{-- 日付 --}}
-                                        <p>{{ $dates[$i] }}</p>
-                                    </div>
-                                    <!-- タイトル -->
-                                    <p class="lo text-xm text-gray-500 tg">{{ $favorites[$i]->title }}</p>
-                                </a>
-                            </div>
+                                    {{-- 修正 --}}
+                                    {{-- 記事にサムネがありイメージデータがある場合 --}}
+                                    @if ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata !== null)
+                                    <img class="bora imagk200"
+                                        src="data:image/{{ $articles[$i]['extension'] }};base64,{{ base64_encode($articles[$i]['imagedata']) }}"
+                                        alt="サムネイル画像">
+                                    {{-- 記事にサムネがありイメージデータがない場合 --}}
+                                    @elseif ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata === null)
+                                    <img class="bora imagk200" src="{{ asset($favorites[$i]->thumbnail) }}" alt="">
+                                    {{-- 記事にサムネが付いていない場合 --}}
+                                    @else
+                                    <img class="bora" src="{{ asset('image/articledfimage200.jpg') }}" alt="">
+                                    @endif
+                                    {{-- 修正end --}}
+
+                                    {{-- 日付 --}}
+                                    <p>{{ $dates[$i] }}</p>
+                                </div>
+                                <!-- タイトル -->
+                                <p class="lo text-xm text-gray-500 tg">{{ $favorites[$i]->title }}</p>
+                            </a>
                         </div>
+                    </div>
                     </li>
-                @endfor
+                    @endfor
             </ul>
         </div>
 
@@ -332,24 +333,50 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                @for ($i = 0; $i < $count; $i++)
-                    <div class="form-group">
+                    @for ($i = 0; $i < $count; $i++) <div class="form-group">
                         <div class="form-inline">
                             <div class="col">
                                 <div class="max-w-4xl mx-auto sm:px-20 lg:px-30 mb-1">
                                     <a class="a mt-2" href="{{ route('indexshow', $articles[$i]->id) }}">
                                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-10">
                                             <div class="flex">
+                                                {{-- 修正前 --}}
                                                 {{-- 記事にサムネがついていない場合 --}}
-                                                @if ($articles[$i]->thumbnail == null)
-                                                    <img class="bora imagk100"
-                                                        src="{{ asset('image/articledfimage200.jpg') }}" alt="">
-                                                @endif
+                                                {{-- @if ($articles[$i]->thumbnail == null)
+                                                <img class="bora imagk100"
+                                                    src="{{ asset('image/articledfimage200.jpg') }}" alt="">
+                                                @endif --}}
                                                 {{-- 記事にサムネイルがある場合 --}}
-                                                @if ($articles[$i]->thumbnail != null)
-                                                    <img class="bora imagk100"
-                                                        src="{{ asset($articles[$i]->thumbnail) }}" alt="">
+                                                {{-- @if ($articles[$i]->thumbnail != null && $articles[$i]->imagedata
+                                                ===
+                                                null)
+                                                <img class="bora imagk100" src="{{ asset($articles[$i]->thumbnail) }}"
+                                                    alt="">
+                                                @elseif ($articles[$i]->thumbnail !== null && $articles[$i]->imagedata
+                                                !== null)
+                                                <img src="data:image/{{ $articles[$i]['extension'] }};base64,{{ base64_encode($articles[$i]['imagedata']) }}"
+                                                    alt="サムネイル画像">
+                                                @endif --}}
+
+                                                {{-- 修正 --}}
+                                                {{-- 記事にサムネがありイメージデータがある時 --}}
+                                                @if ($articles[$i]->thumbnail != null && $articles[$i]->imagedata !==
+                                                null)
+                                                <img class="bora imagk100"
+                                                    src="data:image/{{ $articles[$i]['extension'] }};base64,{{ base64_encode($articles[$i]['imagedata']) }}"
+                                                    alt="サムネイル画像">
+                                                {{-- 記事にサムネがありイメージデータない時 --}}
+                                                @elseif($articles[$i]->thumbnail != null && $articles[$i]->imagedata ===
+                                                null)
+                                                <img class="bora imagk100" src="{{ asset($articles[$i]->thumbnail) }}"
+                                                    alt="">
+                                                {{-- 記事にサムネがついていない場合 --}}
+                                                @else
+                                                <img class="bora imagk100"
+                                                    src="{{ asset('image/articledfimage200.jpg') }}" alt="">
                                                 @endif
+                                                {{-- 修正end --}}
+
                                                 <div class="wi col- mx-3 my-2">
                                                     <!-- タイトル -->
                                                     <p class="lo text-xl text-gray-500 pt-2">{{ $articles[$i]->title }}
@@ -358,26 +385,63 @@
                                                     <div class="sp pt-2">
                                                         <span class="lo text-xs text-gray-400">
                                                             <div class="flex">
-                                                                {{-- ユーザーアイコンが設定されていない場合デフォルト表示 --}}
-                                                                @if ($articles[$i]->icon == null)
-                                                                    <img class=""
-                                                                        src="{{ asset('image/df40icon.jpg') }}"
-                                                                        alt="">
-                                                                @endif
+                                                                {{-- 修正前 --}}
+                                                                {{-- 記事にユーザーidが登録されているか --}}
+                                                                {{-- @if($articles[$i]->user_id !== null) --}}
                                                                 {{-- ユーザーアイコンが設定されている場合デフォルト表示 --}}
-                                                                @if ($articles[$i]->icon != null)
-                                                                    <img class="spimgs"
-                                                                        src="{{ asset($articles[$i]->icon) }}"
-                                                                        alt="">
+                                                                {{-- @if ($articles[$i]->user->icon != null)
+                                                                <img class="spimgs"
+                                                                    src="{{ asset('image/'. $articles[$i]->user->icon) }}"
+                                                                    alt=""> --}}
+                                                                {{-- ユーザーアイコンが設定されていない場合 --}}
+                                                                {{-- @elseif ($articles[$i]->user->icom === null)
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
                                                                 @endif
+                                                                @elseif ($articles[$i]->user_id === null) --}}
+                                                                {{-- ユーザーアイコンが設定されていない場合デフォルト表示 --}}
+                                                                {{-- <img class=""
+                                                                    src="{{ asset('image/df40icon.jpg') }}" alt="">
+                                                                @endif --}}
+
+                                                                {{-- 修正 --}}
+                                                                {{-- 記事にユーザーが登録されていてユーザーアイコンが登録されている場合 --}}
+                                                                @if($articles[$i]->user_id !== null &&
+                                                                $articles[$i]->user->icon != null)
+                                                                <img class="spimgs"
+                                                                    src="{{ asset('image/'. $articles[$i]->user->icon) }}"
+                                                                    alt="">
+                                                                <div class="down pl-2">
+                                                                    {{ $articles[$i]->user->user_name }}
+                                                                    ({{ $articles[$i]->user->account_name }})
+                                                                </div>
+                                                                {{-- 記事にユーザーが登録さえていてユーザーアイコンが登録されていない場合 --}}
+                                                                @elseif($articles[$i]->user_id !== null &&
+                                                                $articles[$i]->user->icom === null)
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
+                                                                <div class="down pl-2">
+                                                                    {{ $articles[$i]->user->user_name }}
+                                                                    ({{ $articles[$i]->user->account_name }})
+                                                                </div>
+                                                                {{-- 記事にユーザーが登録されていない場合 --}}
+                                                                @elseif ($articles[$i]->user_id === null)
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
+                                                                <div class="down pl-2">
+                                                                    <p>名無し</p>
+                                                                </div>
+                                                                @endif
+                                                                {{-- 修正end --}}
+
                                                                 <div class="down pl-2">
                                                                     {{ $articles[$i]->user_name }}
                                                                     ({{ $articles[$i]->account_name }})
                                                                 </div>
                                                             </div>
                                                         </span>
-                                                        <span
-                                                            class="text-xs text-right down">{{ $articles[$i]->updated_at }}</span><br>
+                                                        <span class="text-xs text-right down">{{
+                                                            $articles[$i]->updated_at }}</span><br>
                                                     </div>
                                                 </div>
                                             </div>
@@ -386,7 +450,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
                 @endfor
             </div>
         </div>
@@ -398,34 +462,48 @@
         <div class="">
             <ul class="spscroll_content pl-7">
                 {{-- 5個まで表示 --}}
-                @for ($i = 0; $i < 5; $i++)
-                    <li class="mt-3 spiw">
-                        <div class="spbox">
-                            <div>
-                                <a class="as" href="{{ route('indexshow', $favorites[$i]->id) }}">
-                                    <div class="kasaneru bg-white spbrue">
-                                        {{-- 画像 --}}
-                                        {{-- 記事にサムネがついていない場合 --}}
-                                        @if ($favorites[$i]->thumbnail == null)
-                                            <img class="bora10" src="{{ asset('image/articledfimage200.jpg') }}"
-                                                alt="">
-                                        @endif
-                                        {{-- 記事にサムネイルがある場合 --}}
-                                        @if ($favorites[$i]->thumbnail != null)
-                                            <img class="bora10 imagk200" src="{{ asset($favorites[$i]->thumbnail) }}"
-                                                alt="">
-                                        @endif
-                                        {{-- 日付 --}}
-                                        <p>{{ $dates[$i] }}</p>
-                                    </div>
-                                    <!-- タイトル -->
-                                    <p class="lo text-xm bg-white text-gray-500 tg pt-2">{{ $favorites[$i]->title }}
-                                    </p>
-                                </a>
-                            </div>
+                @for ($i = 0; $i < 5; $i++) <li class="mt-3 spiw">
+                    <div class="spbox">
+                        <div>
+                            <a class="as" href="{{ route('indexshow', $favorites[$i]->id) }}">
+                                <div class="kasaneru bg-white spbrue">
+                                    {{-- 修正前 --}}
+                                    {{-- 画像 --}}
+                                    {{-- 記事にサムネがついていない場合 --}}
+                                    {{-- @if ($favorites[$i]->thumbnail == null)
+                                    <img class="bora10" src="{{ asset('image/articledfimage200.jpg') }}" alt="">
+                                    @endif --}}
+                                    {{-- 記事にサムネイルがある場合 --}}
+                                    {{-- @if ($favorites[$i]->thumbnail != null)
+                                    <img class="bora10 imagk200" src="{{ asset($favorites[$i]->thumbnail) }}" alt="">
+                                    @endif --}}
+
+                                    {{-- 修正 --}}
+                                    {{-- 記事にサムネがありイメージデータがある場合 --}}
+                                    @if ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata !== null)
+                                    <img class="bora imagk200"
+                                        src="data:image/{{ $articles[$i]['extension'] }};base64,{{ base64_encode($articles[$i]['imagedata']) }}"
+                                        alt="サムネイル画像">
+                                    {{-- 記事にサムネがありイメージデータがない場合 --}}
+                                    @elseif ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata === null)
+                                    <img class="bora imagk200" src="{{ asset($favorites[$i]->thumbnail) }}" alt="">
+                                    {{-- 記事にサムネが付いていない場合 --}}
+                                    @else
+                                    <img class="bora" src="{{ asset('image/articledfimage200.jpg') }}" alt="">
+                                    @endif
+                                    {{-- 修正end --}}
+
+                                    {{-- 日付 --}}
+                                    <p>{{ $dates[$i] }}</p>
+                                </div>
+                                <!-- タイトル -->
+                                <p class="lo text-xm bg-white text-gray-500 tg pt-2">{{ $favorites[$i]->title }}
+                                </p>
+                            </a>
                         </div>
+                    </div>
                     </li>
-                @endfor
+                    @endfor
             </ul>
         </div>
 
@@ -433,25 +511,44 @@
         <div class="py-3 col-span-8 lg:grid-col-span-8 gap-3">
             <div class="container">
                 {{-- <div class="row row-cols-auto"> --}}
-                @for ($i = 0; $i < $count; $i++)
-                    <div class="form-group">
+                    @for ($i = 0; $i < $count; $i++) <div class="form-group">
                         <div class="form-inline">
                             <div class="col pl-0 pr-0">
                                 <div class="max-w-4xl mx-auto sm:px-20 lg:px-30 mb-1">
                                     <a class="a mt-2" href="{{ route('indexshow', $articles[$i]->id) }}">
                                         <div class="bg-white overflow-hidden shadow-sm bora10 sm:rounded-lg">
                                             <div class="">
+                                                {{-- 修正前 --}}
                                                 {{-- 記事にサムネがついていない場合 --}}
-                                                @if ($articles[$i]->thumbnail == null)
-                                                    <img class=" imagk400"
-                                                        src="{{ asset('image/articledfimage200.jpg') }}"
-                                                        alt="">
-                                                @endif
+                                                {{-- @if ($articles[$i]->thumbnail == null)
+                                                <img class=" imagk400" src="{{ asset('image/articledfimage200.jpg') }}"
+                                                    alt="">
+                                                @endif --}}
                                                 {{-- 記事にサムネイルがある場合 --}}
-                                                @if ($articles[$i]->thumbnail != null)
-                                                    <img class=" imagk400" src="{{ asset($articles[$i]->thumbnail) }}"
-                                                        alt="">
+                                                {{-- @if ($articles[$i]->thumbnail != null)
+                                                <img class=" imagk400" src="{{ asset($articles[$i]->thumbnail) }}"
+                                                    alt="">
+                                                @endif --}}
+
+                                                {{-- 修正 --}}
+                                                {{-- 記事にサムネがありイメージデータがあるとき --}}
+                                                @if ($articles[$i]->thumbnail !== null && $articles[$i]->imagedata !==
+                                                null)
+                                                <img class="bora imagk400"
+                                                    src="data:image/{{ $articles[$i]['extension'] }};base64,{{ base64_encode($articles[$i]['imagedata']) }}"
+                                                    alt="サムネイル画像">
+                                                {{-- 記事にサムネありイメージデータがない時 --}}
+                                                @elseif ($articles[$i]->thumbnail !== null && $articles[$i]->imagedata
+                                                === null)
+                                                <img class=" imagk400" src="{{ asset($articles[$i]->thumbnail) }}"
+                                                    alt="">
+                                                {{-- 記事にサムネが付いてない場合 --}}
+                                                @else
+                                                <img class=" imagk400" src="{{ asset('image/articledfimage200.jpg') }}"
+                                                    alt="">
                                                 @endif
+                                                {{-- 修正end --}}
+
                                                 <div class="wi col mx-1 my-2">
                                                     <!-- タイトル -->
                                                     <p class="lo text-xl text-gray-500 pt-2">{{ $articles[$i]->title }}
@@ -460,26 +557,57 @@
                                                     <div class="sp pt-2">
                                                         <span class="lo text-xs text-gray-400">
                                                             <div class="flex">
+                                                                {{-- 修正前 --}}
                                                                 {{-- ユーザーアイコンが設定されていない場合デフォルト表示 --}}
-                                                                @if ($articles[$i]->icon == null)
-                                                                    <img class=""
-                                                                        src="{{ asset('image/df40icon.jpg') }}"
-                                                                        alt="">
-                                                                @endif
+                                                                {{-- @if ($articles[$i]->icon == null)
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
+                                                                @endif --}}
                                                                 {{-- ユーザーアイコンが設定されている場合デフォルト表示 --}}
-                                                                @if ($articles[$i]->icon != null)
-                                                                    <img class="spimgs"
-                                                                        src="{{ asset($articles[$i]->icon) }}"
-                                                                        alt="">
+                                                                {{-- @if ($articles[$i]->icon != null)
+                                                                <img class="spimgs"
+                                                                    src="{{ asset($articles[$i]->icon) }}" alt="">
                                                                 @endif
                                                                 <div class="down pl-2">
                                                                     {{ $articles[$i]->user_name }}
                                                                     ({{ $articles[$i]->account_name }})
+                                                                </div> --}}
+
+                                                                {{-- 修正 --}}
+                                                                {{-- 記事にユーザーが登録されていてユーザーアイコンが登録されている場合 --}}
+                                                                @if ($articles[$i]->user_id !== null &&
+                                                                $articles[$i]->user->icon != null)
+                                                                <img class="spimgs"
+                                                                src="{{ asset('image/'. $articles[$i]->user->icon) }}"
+                                                                alt="">
+                                                            <div class="down pl-2">
+                                                                    {{ $articles[$i]->user->user_name }}
+                                                                    ({{ $articles[$i]->user->account_name }})
                                                                 </div>
+                                                                {{-- 記事にユーザーが登録されていない場合 --}}
+                                                                @elseif($articles[$i]->user_id !== null &&
+                                                                $articles[$i]->user->icom === null)
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
+                                                                <div class="down pl-2">
+                                                                    {{ $articles[$i]->user->user_name }}
+                                                                    ({{ $articles[$i]->user->account_name }})
+                                                                </div>
+                                                                {{-- 記事にユーザーが登録されていない場合 --}}
+                                                                @elseif ($articles[$i]->user_id === null)
+                                                                {{-- ユーザーアイコンが設定されていない場合デフォルト表示 --}}
+                                                                <img class="" src="{{ asset('image/df40icon.jpg') }}"
+                                                                    alt="">
+                                                                <div class="down pl-2">
+                                                                    <p>名無し</p>
+                                                                </div>
+                                                                @endif
+                                                                {{-- 修正end --}}
+
                                                             </div>
                                                         </span>
-                                                        <span
-                                                            class="text-xs text-right down">{{ $articles[$i]->updated_at }}</span><br>
+                                                        <span class="text-xs text-right down">{{
+                                                            $articles[$i]->updated_at }}</span><br>
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,7 +616,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
                 @endfor
             </div>
         </div>

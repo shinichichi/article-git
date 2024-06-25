@@ -20,18 +20,14 @@ class AnotherController extends Controller
      */
     public function index()
     {
-        // test
-        // $a = Article::with('user')->get();
-        // dd($a);
-        // end
-
         // おすすめ記事5個取得
-        $this->article = new Article();
-        $favorites = $this->article->getUserNameByIdFive();
+        // $this->article = new Article();
+        // $favorites = $this->article->getUserNameByIdFive();
+        $favorites = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
 
         // サムネイルがある場合サムネイル保管パスをつける
         for ($i = 0; $i < 5; $i++) {
-            if ($favorites[$i]->thumbnail != null) {
+            if ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata === null) {
                 $favorites[$i]->thumbnail = ('image/' . $favorites[$i]->thumbnail);
             }
         }
@@ -41,10 +37,13 @@ class AnotherController extends Controller
         }
 
         // 新しい記事順に一覧表示
-        $this->article = new Article();
-        $articles = $this->article->getUserNameById();
-        $count = $this->article->getUserNameById()->count();
-        // dd($articles);
+
+        // $this->article = new Article();
+        // $articles = $this->article->getUserNameById();
+        $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
+        // $count = $this->article->getUserNameById()->count();
+        $count = Article::where('is_delete', null)->with('user')->get()->count();
+
         // テスト用サムネイル画像があるストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->thumbnail != null) {
@@ -81,13 +80,12 @@ class AnotherController extends Controller
         // マークダウンテキストをHTMLにコンバート
         $article['markdown_text'] = Str::markdown($article['markdown_text']);
 
-        if($article['thumbnail'] !== null && $article['imagedata'] !== null)
-        {
+        if ($article['thumbnail'] !== null && $article['imagedata'] !== null) {
             $path = pathinfo($article['thumbnail']);
             // 拡張子
-            if($path['extension'] === 'svg'){
+            if ($path['extension'] === 'svg') {
                 $article['extension'] = 'svg+xml';
-            }else{
+            } else {
                 $article['extension'] = $path['extension'];
             }
         }
@@ -97,7 +95,7 @@ class AnotherController extends Controller
     //　マイページ表示
     public function mypage()
     {
-        
+
         $articles = DB::table('articles')->where('user_id', Auth::user()->id)->get();
         $count = $articles->count();
 
