@@ -16,24 +16,6 @@ use Jfcherng\Diff\Renderer\Html\Unified;
 
 class ArticleController extends Controller
 {
-
-    // public function index(){
-    //     $articles = Article::get();
-    //     $n = null;
-    //     if(count($articles) <= 0){
-    //         $n = 'nothing';
-    //     }elseif(count($articles) === 1){
-    //         $n = $articles;
-    //     }elseif(count($articles) > 0){
-    //         foreach($articles as $article){
-    //             $n[] = $article;
-    //         }
-    //     }
-    //     $articles = $n;
-    //     return view('article.index', ['articles' => $articles]);
-    // }
-
-
     // 記事作成画面遷移
     public function create(){
         return view('article.create');

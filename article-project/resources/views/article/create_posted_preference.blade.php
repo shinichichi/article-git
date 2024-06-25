@@ -48,14 +48,15 @@
                     @endif
 </br>
                 </div>
-                {{-- <form action="{{ route('article.store') }}" method="GET">
-                    <div class="w-full flex flex-col">
+                <form action="{{ route('article.store') }}" method="post">
+                    @csrf
+                    {{-- <div class="w-full flex flex-col">
                         <label for="comment" class="font-semibold mt-4">コメント</label>
                         <input type="text" name="comment"  id="comment" value="{{old('comment')}}">
-                    </div>
+                    </div> --}}
                     <button>投稿</button>    
-                </form> --}}
-                <a href="{{ route('article.store') }}">投稿する</a>
+                </form>
+                {{-- <a href="{{ route('article.store') }}">投稿する</a> --}}
             </div>
         </div>
     </div>

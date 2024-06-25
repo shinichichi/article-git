@@ -70,9 +70,26 @@ var simplemde = new SimpleMDE({
 
 // ページロード時にエディタの内容を設定
 document.addEventListener("DOMContentLoaded", function() {
-    const editorContent = document.getElementById('editor-content').getAttribute('data-content');
-    console.log(editorContent);
-    simplemde.value(editorContent);
+    if (localStorage.getItem('title')) {
+        document.getElementById('title').value = localStorage.getItem('title');
+    }
+    if (localStorage.getItem('content')) {
+        simplemde.value(localStorage.getItem('content'));
+    }
+});
+
+// フォームの入力値をローカルストレージに保存
+document.getElementById('title').addEventListener('input', function() {
+    localStorage.setItem('title', this.value);
+});
+simplemde.codemirror.on('change', function() {
+    localStorage.setItem('content', simplemde.value());
+});
+
+// フォームが送信されたらローカルストレージをクリア
+document.getElementById('articleForm').addEventListener('submit', function() {
+    localStorage.removeItem('title');
+    localStorage.removeItem('content');
 });
 
 // // ドラッグ＆ドロップによる画像アップロード
