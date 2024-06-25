@@ -9,7 +9,7 @@
                 <div class="p-6 text-gray-900">
                     @if ($article['extension'] === null)
                     {{-- サムネ --}}
-                    <img id="icon_img_prv" class="radius h-25 w-25 mb-10 mt-10 a"
+                    <img id="icon_img_prv" class="nospimgs img-thumbnail radius h-25 w-25 mb-10 mt-10 a"
                         src="{{ asset('image/articledfimage.jpg') }}" alt="">
                     @else
                     <img class="radius mb-10 mt-10 a" src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
