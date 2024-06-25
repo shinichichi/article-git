@@ -37,13 +37,12 @@ class AnotherController extends Controller
         }
 
         // 新しい記事順に一覧表示
+
         // $this->article = new Article();
         // $articles = $this->article->getUserNameById();
         $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
         // $count = $this->article->getUserNameById()->count();
         $count = Article::where('is_delete', null)->with('user')->get()->count();
-
-        // dd($count);
 
         // テスト用サムネイル画像があるストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {
