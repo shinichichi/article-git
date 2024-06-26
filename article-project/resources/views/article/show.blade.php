@@ -9,6 +9,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if ($article['extension'] === null && $article['imagedata'] === null)
+
                         <img id="icon_img_prv" class="nospimgs img-thumbnail h-25 w-25 mb-10 mt-10 a"
                             src="{{ asset('image/articledfimage.jpg') }}" alt="">
                     @elseif($article['extension'] !== null && $article['imagedata'] !== null)

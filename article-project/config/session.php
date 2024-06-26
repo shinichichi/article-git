@@ -31,9 +31,10 @@ return [
     |
     */
 
+    // セッションの有効期限
     'lifetime' => env('SESSION_LIFETIME', 120),
 
-    'expire_on_close' => false,
+    'expire_on_close' => false, // 閉じた時に消す
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ return [
     |
     */
 
+    // sessionデータの暗号化。CPUに負荷かけるっぽい
     'encrypt' => false,
 
     /*
@@ -181,6 +183,7 @@ return [
     |
     */
 
+    // クッキーがjavascriptからアクセスできないようになる。xss攻撃,セッションハイジャックを防ぐ
     'http_only' => true,
 
     /*

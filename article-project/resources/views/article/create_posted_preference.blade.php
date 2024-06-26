@@ -57,19 +57,16 @@
                     @endif
                     </br> --}}
                 </div>
-                {{-- <form action="{{ route('article.store') }}" method="GET">
-                    <div class="w-full flex flex-col">
+                <form action="{{ route('article.store') }}" method="post">
+                    @csrf
+                    {{-- <div class="w-full flex flex-col">
                         <label for="comment" class="font-semibold mt-4">コメント</label>
                         <input type="text" name="comment"  id="comment" value="{{old('comment')}}">
-                    </div>
+                    </div> --}}
                     <button>投稿</button>    
-                </form> --}}
-                <div class="fl">
-                    <button class="bt text-xl radius mb-14"  onclick="history.back()">戻る</button>
-                    <button class="bg-blue-400 hover:bg-blue-300 bt text-xl radius mb-14"  onclick="history.back()">作成</button>
+                </form>
+                {{-- <a href="{{ route('article.store') }}">投稿する</a> --}}
 
-                    {{-- <a class="bt text-xl radius mb-14" href="{{ route('article.store') }}">投稿</a> --}}
-                </div>
             </div>
         </div>
     </div>

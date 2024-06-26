@@ -64,7 +64,6 @@ class AnotherController extends Controller
             "favorites" => $favorites,
             "articles" => $articles,
             "count" => $count,
-            // 'a' => $a,
         ]);
     }
 

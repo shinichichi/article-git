@@ -411,6 +411,7 @@
                                                                 <img class="spimgs"
                                                                     src="{{ asset('image/'. $articles[$i]->user->icon) }}"
                                                                     alt="">
+                                                                {{-- 名前 --}}
                                                                 <div class="down pl-2">
                                                                     {{ $articles[$i]->user->user_name }}
                                                                     ({{ $articles[$i]->user->account_name }})
@@ -420,6 +421,7 @@
                                                                 $articles[$i]->user->icom === null)
                                                                 <img class="" src="{{ asset('image/df40icon.jpg') }}"
                                                                     alt="">
+                                                                {{-- 名前 --}}
                                                                 <div class="down pl-2">
                                                                     {{ $articles[$i]->user->user_name }}
                                                                     ({{ $articles[$i]->user->account_name }})
@@ -434,10 +436,10 @@
                                                                 @endif
                                                                 {{-- 修正end --}}
 
-                                                                <div class="down pl-2">
+                                                                {{-- <div class="down pl-2">
                                                                     {{ $articles[$i]->user_name }}
                                                                     ({{ $articles[$i]->account_name }})
-                                                                </div>
+                                                                </div> --}}
                                                             </div>
                                                         </span>
                                                         <span class="text-xs text-right down">{{
