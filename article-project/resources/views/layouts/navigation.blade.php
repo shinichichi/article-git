@@ -45,7 +45,7 @@
                     <x-slot name="content">
                         {{-- ログイン中のみ表示 --}}
                         @if (Auth::user())
-                            <x-dropdown-link :href="route('article.create')">
+                            <x-dropdown-link :href="route('article.create')" id="create-article-link">
                                 {{ __('記事作成') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">
@@ -76,7 +76,7 @@
                             {{ __('ログイン') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('article.create')">
+                        <x-dropdown-link :href="route('article.create')" id="create-article-link">
                             {{ __('記事作成') }}
                         </x-dropdown-link>
                         @endif
@@ -124,7 +124,7 @@
                 </div>
                 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('article.create')">
+                    <x-responsive-nav-link :href="route('article.create')" id="create-article-link">
                         {{ __('記事作成') }}
                     </x-responsive-nav-link>
 
@@ -169,7 +169,7 @@
                         {{ __('ログイン') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('article.create')">
+                    <x-responsive-nav-link :href="route('article.create')" id="create-article-link">
                         {{ __('記事作成') }}
                     </x-responsive-nav-link>
                 </div>
@@ -177,3 +177,19 @@
         @endif
     </div>
 </nav>
+@push('scripts')
+<script>
+    document.getElementById('create-article-link').addEventListener('click', function(event) {
+        // リンクのデフォルトの動作を防ぐ
+        event.preventDefault();
+        // ローカルストレージをクリア
+        localStorage.removeItem('title');
+        localStorage.removeItem('content');
+        localStorage.setItem('action', 'create');
+
+
+        // リンク先に遷移
+        window.location.href = this.href;
+    });
+    </script>
+@endpush

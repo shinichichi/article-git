@@ -16,7 +16,7 @@
                         alt="サムネイル画像">
                     @endif
                     {{-- タイトル --}}
-                    <p class="text-xl center-btn pb-12 tl mt-12 ml-14 mr-14 line">{{ $article['title'] }}</p>
+                    <p class="text-xl center-btn pb-12 tl mt-12 ml-14 mr-14 line">{{ session('article.title') }}</p>
                     {{-- <p>記事内容：</p> --}}
                     {{-- 記事内容 --}}
                     <pre class="center-btn pb-3 k tl mt-14 ml-14 mr-14">{!! $article['markdown_text'] !!}</pre>
@@ -53,14 +53,29 @@
                     </br> --}}
 
                 </div>
-                <form action="{{ route('article.update') }}" method="GET">
+                <form action="{{ route('article.update') }}" method="POST">
+                    @csrf
+                    {{-- @method('patch') --}}
+                    {{-- @if ($article['thumbnail'] !== null)
+                    <input type="hidden" name="thumbnail" value="{{ $article['thumbnail'] }}">
+                    @endif
+                    @if($article['imagedata'] !== null)
+                    <input type="hidden" name="imagedata" value="{{ $article['imagedata'] }}">
+                    @endif --}}
+                    <input type="hidden" name="not_image" value="{{ $article['not_image'] }}">
+                    <input type="hidden" name="id" value="{{ $article['id'] }}">
+                    <input type="hidden" name="title" value="{{ $article['title'] }}">
+                    <input type="hidden" name="markdown_text" value="{{ $article['markdown_text'] }}">
+                    <input type="hidden" name="article_type" value="{{ $article['article_type'] }}">
+                    <input type="hidden" name="public_type" value="{{ $article['public_type'] }}">
+                    <input type="hidden" name="draft" value="{{ $article['draft'] }}">
                     <div class="w-full flex flex-col">
                         <label for="comment" class="text-gray-500 font-semibold mt-4 mb-5 center-btn">コメント</label>
                         <input type="text" name="comment" id="comment" value="{{old('comment')}}">
                     </div>
                     <div class="fl mt-14">
                     <button class="bt text-xl radius mb-14"  onclick="history.back()">戻る</button>
-                    <button class="bg-blue-400 hover:bg-blue-300 bt text-xl radius mb-14"  onclick="history.back()">作成</button>
+                    <button class="bg-blue-400 hover:bg-blue-300 bt text-xl radius mb-14" id="dataForm" onclick="history.back()">作成</button>
                     </div>
                 </form>
             </div>
@@ -68,6 +83,18 @@
     </div>
     @push('scripts')
     <script src="{{ asset('/highlight/package.json') }}"></script>
+    <script>
+        document.getElementById('dataForm').addEventListener('click', function(event) {
+        // リンクのデフォルトの動作を防ぐ
+        // event.preventDefault();
+        // ローカルストレージをクリア
+        localStorage.removeItem('title');
+        localStorage.removeItem('content');
+
+        // リンク先に遷移
+        window.location.href = this.href;
+        });
+        </script>
     @endpush
 
 
