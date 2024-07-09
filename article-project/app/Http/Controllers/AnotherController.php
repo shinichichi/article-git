@@ -21,10 +21,7 @@ class AnotherController extends Controller
     public function index()
     {
         // おすすめ記事5個取得
-        // $this->article = new Article();
-        // $favorites = $this->article->getUserNameByIdFive();
         $favorites = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
-
         // サムネイルがある場合サムネイル保管パスをつける
         for ($i = 0; $i < 5; $i++) {
             if ($favorites[$i]->thumbnail !== null && $favorites[$i]->imagedata === null) {
@@ -35,22 +32,19 @@ class AnotherController extends Controller
         foreach ($favorites as $favorite) {
             $dates[] = Carbon::parse($favorite->updated_at)->format('Y-m-d');
         }
-
-        // 新しい記事順に一覧表示
-
-        // $this->article = new Article();
-        // $articles = $this->article->getUserNameById();
-        $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
-        // $count = $this->article->getUserNameById()->count();
-        $count = Article::where('is_delete', null)->with('user')->get()->count();
-
+        // 新しい記事順に一覧表示  5件
+        $articles = Article::where('is_delete', null)
+        ->with('user')
+        ->orderBy('updated_at', 'desc')
+        ->take(5)
+        ->get();
+        $count = 5;
         // テスト用サムネイル画像があるストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->thumbnail != null) {
                 $articles[$i]->thumbnail = ('image/' . $articles[$i]->thumbnail);
             }
         }
-
         // テスト用アイコン画像がある場合ストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {
             if ($articles[$i]->icon != null) {
@@ -58,13 +52,11 @@ class AnotherController extends Controller
             }
         }
         session()->flash('flash_message', '最新記事一覧');
-
         return view('article.index')->with([
             "dates" => $dates,
             "favorites" => $favorites,
             "articles" => $articles,
             "count" => $count,
-            // 'a' => $a,
         ]);
     }
 
@@ -73,10 +65,7 @@ class AnotherController extends Controller
      */
     public function articleshow($id)
     {
-        // dd($id);
-        // $value = session()->pull('article');
         $article = Article::where('id', $id)->first();
-        // dd($article);
         // マークダウンテキストをHTMLにコンバート
         $article['markdown_text'] = Str::markdown($article['markdown_text']);
 

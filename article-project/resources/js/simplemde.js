@@ -67,13 +67,91 @@ var simplemde = new SimpleMDE({
 //     // カスタムMarkdownのパーサー処理
 //     return text;
 // }
+// const markdown_editor = document.getElementById('markdown-editor').value
+if (localStorage.getItem('action') === 'create') {
+    const text = '';
+    simplemde.value(text);
+    document.getElementById('title').value = localStorage.getItem('title');
+    // simplemde.value();
+    localStorage.removeItem('action');
+} else if (localStorage.getItem('action') === 'edit') {
+    console.log(document.getElementById('markdown-editor').value !== null);
+    if (document.getElementById('markdown-editor').value !== null) {
+        simplemde.value(document.getElementById('markdown-editor').value);
+        localStorage.setItem('content', simplemde.value());
+    }
+    localStorage.removeItem('action')
+} else {
+    if (localStorage.getItem('content') !== null) {
+        simplemde.value(localStorage.getItem('content'));
+    }
+    if (localStorage.getItem('title') !== null) {
+        document.getElementById('title').value = localStorage.getItem('title');
+    }
+}
 
-// ページロード時にエディタの内容を設定
-document.addEventListener("DOMContentLoaded", function() {
-    const editorContent = document.getElementById('editor-content').getAttribute('data-content');
-    console.log(editorContent);
-    simplemde.value(editorContent);
+// // ページロード時にエディタの内容を設定
+// document.addEventListener("DOMContentLoaded", function() {
+//     if (localStorage.getItem('title')) {
+//         document.getElementById('title').value = localStorage.getItem('title');
+//     }
+//     // console.log(document.getElementById('markdown-editor'));t
+//     if (localStorage.getItem('content') !== null) {
+//         // console.log(document.getElementById('markdown-editor').value = localStorage.getItem('content'));
+//         // document.getElementById('markdown-editor').value = localStorage.ge('content');
+//         if (localStorage.getItem('action') !== 'create') {
+//             // simplemde.value(localStorage.getItem('content'));
+//         } else {
+//             simplemde.value();
+//         }
+//     }
+// });
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     const title = localStorage.getItem('title');
+//     const content = localStorage.getItem('content');
+//     console.log(title);
+//     console.log(content);
+//     if (title) {
+//         document.getElementById('title').value = title;
+//     }
+//     if (content) {
+//         simplemde.value(content);
+//         console.log('ok')
+//     }
+// });
+// フォームの入力値をローカルストレージに保存
+document.getElementById('title').addEventListener('input', function() {
+    localStorage.setItem('title', this.value);
 });
+simplemde.codemirror.on('change', function() {
+    localStorage.setItem('content', simplemde.value());
+});
+
+// フォームの入力値をローカルストレージに保存
+document.getElementById('title').addEventListener('input', function() {
+    localStorage.setItem('title', this.value);
+});
+simplemde.codemirror.on('change', function() {
+    localStorage.setItem('content', simplemde.value());
+});
+
+// // フォームが送信されたらローカルストレージとエディタの内容をクリア
+// document.getElementById('articleForm').addEventListener('submit', function(event) {
+//     // フォーム送信を一時停止
+//     event.preventDefault();
+
+//     // ローカルストレージをクリア
+//     localStorage.removeItem('title');
+//     localStorage.removeItem('content');
+
+//     // SimpleMDEの入力値をリセット
+//     document.getElementById('title').value = '';
+//     simplemde.value('');
+
+//     // フォームを再送信
+//     this.submit();
+// });
 
 // // ドラッグ＆ドロップによる画像アップロード
 // simplemde.codemirror.on("drop", function(editor, e) {

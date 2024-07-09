@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    @if ($article['extension'] === null && $article['imagedata'] === null)
+                    {{-- @if ($article['extension'] === null && $article['imagedata'] === null)
                         <img id="icon_img_prv" class="nospimgs img-thumbnail h-25 w-25 mb-10 mt-10 a"
                             src="{{ asset('image/articledfimage.jpg') }}" alt="">
                     @elseif($article['extension'] !== null && $article['imagedata'] !== null)
@@ -16,6 +16,21 @@
                             src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
                             alt="サムネイル画像">
                     @elseif($article['extension'] !== null && $article['imagedata'] === null)
+                    @elseif($article['thumbnail'] !== null && $article['imagedate'] === null)
+                    <img class="bora imagk100" src="{{ asset($article->thumbnail) }}"
+                    alt="">
+
+                    @endif --}}
+                    @if($article['thumbnail'] !== null && $article['imagedata'] !== null)
+                    <img class=" h-25 w-25 mb-10 mt-10 a radius "
+                    src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
+                    alt="サムネイル画像">
+                    @elseif($article['thumbnail'] !== null && $article['imagedata'] === null)
+                    <img class=" h-25 w-25 mb-10 mt-10 a radius " src="{{ asset('image/'.$article->thumbnail) }}"
+                    alt="">
+                    @else
+                    <img class="bora imagk100"
+                    src="{{ asset('image/articledfimage200.jpg') }}" alt="">
                     @endif
                     {{-- <p>タイトル</p> --}}
                     <p class="text-xl center-btn pb-12 tl mt-12 ml-14 mr-14 line">{{ $article['title'] }}</p>
@@ -59,7 +74,7 @@
 
                             <input type="hidden" name="id" value="{{ $article->id }}">
                             <div class="center-btn">
-                            <x-primary-button class="mt-4 mb-14">
+                            <x-primary-button class="mt-4 mb-14" id="edit-article-button">
                                 編集
                             </x-primary-button>
                             </div>
@@ -72,5 +87,18 @@
 
     @push('scripts')
         <script src="{{ asset('/highlight/package.json') }}"></script>
+        <script>
+        document.getElementById('edit-article-button').addEventListener('click', function(event) {
+        // リンクのデフォルトの動作を防ぐ
+        // event.preventDefault();
+        // ローカルストレージをクリア
+        localStorage.removeItem('title');
+        localStorage.removeItem('content');
+        localStorage.setItem('action', 'edit');
+
+        // リンク先に遷移
+        window.location.href = this.href;
+        });
+        </script>
     @endpush
 </x-app-layout>
