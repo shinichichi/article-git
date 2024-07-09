@@ -301,3 +301,16 @@ img {
     border-radius: 20%;
     /* padding-right: 10px; */
 }
+
+
+/* 一覧ページの読み込み中のタグの */
+
+#desktop-loading {
+    text-align: center;
+    display: none;
+}
+
+#smartphone-loading {
+    text-align: center;
+    display: none;
+}

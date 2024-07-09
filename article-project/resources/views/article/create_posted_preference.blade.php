@@ -15,6 +15,9 @@
                         <img class=" h-25 w-25 mb-10 mt-10 a radius "
                             src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
                             alt="サムネイル画像">
+                            {{-- <img class="radius mb-10 mt-10 a" src="data:image/{{ $article['extension'] }};base64,{{ base64_encode($article['imagedata']) }}"
+                            alt="サムネイル画像"> --}}
+    
                     @endif
                     {{-- タイトル --}}
                     {{-- <p class="center-btn text-xl pb-3">タイトル</p> --}}
@@ -49,6 +52,7 @@
                     </br> --}}
 
                     <!-- draft -->
+                    
                     {{-- <p>下書き設定：</p>
                     @if ($article['draft'] === '0')
                         <p>　下書き</p>
@@ -59,13 +63,23 @@
                 </div>
                 <form action="{{ route('article.store') }}" method="post">
                     @csrf
+                    @if ($article['thumbnail'] !== null)
+                    <input type="hidden" name="thumbnail" value="{{ $article['thumbnail'] }}">
+                    @endif
+                    @if($article['imagedata'] !== null)
+                    <input type="hidden" name="imagedata" value="{{ $article['imagedata'] }}">
+                    @endif
+                    <input type="hidden" name="not_image" value="{{ $article['not_image'] }}">
                     <input type="hidden" name="title" value="{{ $article['title'] }}">
                     <input type="hidden" name="markdown_text" value="{{ $article['markdown_text'] }}">
                     <input type="hidden" name="article_type" value="{{ $article['article_type'] }}">
                     <input type="hidden" name="public_type" value="{{ $article['public_type'] }}">
                     <input type="hidden" name="draft" value="{{ $article['draft'] }}">
-                    <button>投稿</button>    
-                </form>
+                    <div class="fl mt-14">
+                        <button class="bt text-xl radius mb-14"  onclick="history.back()">戻る</button>
+                        <button class="bg-blue-400 hover:bg-blue-300 bt text-xl radius mb-14" id="dataForm" onclick="history.back()">作成</button>
+                        </div>
+                    </form>
                 {{-- <a href="{{ route('article.store') }}">投稿する</a> --}}
 
             </div>

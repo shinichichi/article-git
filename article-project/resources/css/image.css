@@ -16,3 +16,21 @@
     border-radius: 20%;
     /* padding-right: 10px; */
 }
+
+
+/* ×ボタン */
+
+.remove-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+}
