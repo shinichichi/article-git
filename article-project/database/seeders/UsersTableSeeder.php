@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
                 'account_name' => 'test11',
                 'icon' => 'test1.jpg',
                 'admin' => 'admin',
-                'email' => 'example@gmail.com',
+                'email' => 'superstar1999842345@protonmail.com',
                 'email_verified_at' => '0000-00-00 00:00:00',
                 'password' => Hash::make('12345678'),
                 'gender' => '0',
