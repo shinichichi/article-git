@@ -30,3 +30,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage/good_list',[MypageController::class, 'goodIndex'])->name('mypage.good_list');
 
 });
+
+Route::get('/load-more', [ArticleController::class, 'loadMore']);

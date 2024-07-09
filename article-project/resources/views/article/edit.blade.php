@@ -9,6 +9,11 @@
                 {{ session('message') }}
             </div>
         @endif
+        @if (session('error'))
+            <div class="text-red-600 font-bold">
+                <p >{{ session('error') }}</p>
+            </div>
+        @endif
         <form method="post" action="{{ route('article.edit.posted_preference') }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -17,7 +22,7 @@
                 src="{{ asset('image/articledfimage.jpg') }}" alt="">
             <div class="col-md-6">
                 <input id="thumbnail" type="file" class="form-control mt-5 a" accept="image/*"
-                    name="thumbnail_image_path" onchange="setImage">
+                    name="thumbnail_image_path">
             </div>
             <input name="id" type="hidden" value="{{ $article['id'] }}">
             {{-- タイトル --}}

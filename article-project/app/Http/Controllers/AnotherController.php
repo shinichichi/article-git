@@ -40,9 +40,19 @@ class AnotherController extends Controller
 
         // $this->article = new Article();
         // $articles = $this->article->getUserNameById();
-        $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
+        // $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->get();
+        // $articles = Article::where('is_delete', null)->with('user')->orderBy('updated_at',  'desc')->paginate(10);
+        $articles = Article::where('is_delete', null)
+        ->with('user')
+        ->orderBy('updated_at', 'desc')
+        ->take(10)
+        ->get();
+        // dd($articles);
         // $count = $this->article->getUserNameById()->count();
-        $count = Article::where('is_delete', null)->with('user')->get()->count();
+        // $count = Article::where('is_delete', null)->with('user')->get()->count();
+        // $count = Article::where('is_delete', null)->with('user')->paginate(10)->count();
+        $count = 10;
+        // dd($count);
 
         // テスト用サムネイル画像があるストレージからcount数取得
         for ($i = 0; $i < $count; $i++) {

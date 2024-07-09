@@ -59,10 +59,11 @@
                 </div>
                 <form action="{{ route('article.store') }}" method="post">
                     @csrf
-                    {{-- <div class="w-full flex flex-col">
-                        <label for="comment" class="font-semibold mt-4">コメント</label>
-                        <input type="text" name="comment"  id="comment" value="{{old('comment')}}">
-                    </div> --}}
+                    <input type="hidden" name="title" value="{{ $article['title'] }}">
+                    <input type="hidden" name="markdown_text" value="{{ $article['markdown_text'] }}">
+                    <input type="hidden" name="article_type" value="{{ $article['article_type'] }}">
+                    <input type="hidden" name="public_type" value="{{ $article['public_type'] }}">
+                    <input type="hidden" name="draft" value="{{ $article['draft'] }}">
                     <button>投稿</button>    
                 </form>
                 {{-- <a href="{{ route('article.store') }}">投稿する</a> --}}
@@ -72,6 +73,9 @@
     </div>
     @push('scripts')
         <script src="{{ asset('/highlight/package.json') }}"></script>
+        <script>
+            
+        </script>
     @endpush
 
 
