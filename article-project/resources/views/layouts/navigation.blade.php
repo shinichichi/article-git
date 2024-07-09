@@ -72,6 +72,9 @@
                         @endif
                         {{-- ログインしていない場合 --}}
                         @if (is_null(Auth::user()))
+                        <x-dropdown-link :href="route('auth.first-auth')" id="create-article-link">
+                            {{ __('会員登録') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('login')">
                             {{ __('ログイン') }}
                         </x-dropdown-link>
@@ -165,6 +168,9 @@
                 </div> --}}
                 
                 <div class="mt-3 space-y-1">
+                    <x-responsive-nav-link :href="route('auth.first-auth')" id="create-article-link">
+                        {{ __('会員登録') }}
+                    </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('login')">
                         {{ __('ログイン') }}
                     </x-responsive-nav-link>

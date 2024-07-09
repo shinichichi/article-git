@@ -104,7 +104,7 @@ class RegisteredUserController extends Controller
         if ($request->old('str_1') != null){
             return view('auth.register');
         } elseif ($request->old('str_1') == null){
-            return view('welcome');
+            return view('article.index');
         }
     }
 
